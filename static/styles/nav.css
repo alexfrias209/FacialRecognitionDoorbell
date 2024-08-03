@@ -1,0 +1,39 @@
+nav {
+    font-family: 'PT Serif', sans-serif;
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
+	z-index: 9999;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding: 30px;
+	background-color: #FFFFFF;
+	box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+  }
+
+  .navbar{
+	background: #a9cea9;
+	color: #fff;
+	height: 60px;
+	width: 100vw;
+  }
+
+  .navbar-left a {
+	font-weight: bold;
+	font-size: 24px;
+	color: white;
+	text-decoration: none;
+  }
+  
+  .navbar-right a {
+	margin-left: 20px;
+	font-size: 16px;
+	color: white;
+	text-decoration: none;
+  }
+  
+  .navbar-right a:hover {
+	color: #245953;
+  }
