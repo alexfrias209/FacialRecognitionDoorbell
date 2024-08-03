@@ -1,0 +1,51 @@
+{% extends 'main.html' %} {% load static %} {% block content %}
+<link rel="stylesheet" type="text/css" href="{% static 'styles/num.css' %}"/>
+<link href="https://fonts.googleapis.com/css2?family=PT+Serif&display=swap"
+      rel="stylesheet"/>
+
+<h2 id="stuff">Phone Numbers</h2>
+<div class="form-wrapper">
+  <div><h2>Enter New Number: </h2></div>
+  <form method="POST" action="">
+    {% csrf_token %}
+    <div class="form-container2">
+      <div class="form-column">{{ form.name }}</div>
+      <div class="form-column">
+        {{ form.phone_number }} 
+      </div>
+      <h4>{% if messages %}
+        {% for message in messages %}
+          <div class="alert alert-danger">{{ message }}</div>
+        {% endfor %}
+      {% endif %}</h4>
+
+    <input id="no" type="submit" value="Submit" />
+    {% if form.phone_number.errors %}
+    <div class="error">{{ form.phone_number.errors }}</div>
+    {% endif %}
+  </form>
+</div>
+</div>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Phone Number</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for phone_number in uProfile.phonenumber_set.all %}
+    <tr>
+      <td>{{ phone_number.name }}</td>
+      <td>{{ phone_number.phone_number }}</td>
+      <td> 
+        <a href="{% url 'deleteNum' phone_number.id %}" style="text-decoration:none;">Delete</a>
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+{% endblock %}

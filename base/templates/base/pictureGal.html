@@ -1,0 +1,28 @@
+{% extends 'main.html' %} {% load static %} {% block content %}
+
+
+
+<link rel="stylesheet" type="text/css" href="{% static 'styles/editGallery.css' %}"/>
+<link
+      href="https://fonts.googleapis.com/css2?family=PT+Serif&display=swap"
+      rel="stylesheet"
+    />
+
+
+
+
+
+<div class="gal">
+    <div class="title" >
+        <h1>{{ uAccount.username }}</h1>
+    </div>
+    <div class="row">
+        {% for image in uAccount_images %}
+      <div class="col-md-4">
+        <img src="{{ image.images.url }}" alt="{{ uAccount.username }}'s image">
+    </div>
+     
+      {% endfor %}
+    </div>
+  </div>
+  {% endblock %}

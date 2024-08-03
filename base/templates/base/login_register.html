@@ -1,0 +1,61 @@
+ {% load static %} {% load widget_tweaks %}
+
+<link
+  rel="stylesheet"
+  type="text/css"
+  href="{% static 'styles/styles_login.css' %}"
+/>
+
+<link
+      href="https://fonts.googleapis.com/css2?family=PT+Serif&display=swap"
+      rel="stylesheet"
+    />
+
+<img src="{% static 'images/greetmate-low-resolution-logo-color-on-transparent-background (5).png' %}"
+      class="img-top"
+/>
+
+<div class="container" id="container">
+  <div class="form-box new-container">
+    <form action="{% url 'register' %}" method="POST">
+      {% csrf_token %}
+      <h1>Create Account</h1>
+      {{ form.username|add_class:"my-input-class"|attr:"placeholder:Enter username" }}
+      {{ form.password1|add_class:"my-input-class"|attr:"placeholder:Enter password" }} 
+      {{ form.password2|add_class:"my-input-class"|attr:"placeholder:Confirm password" }}
+      <button type="submit">Register</button>
+    </form>
+  </div>
+  <div class="form-box old-container">
+    <form action="{% url 'login' %}" method="POST">
+      {% csrf_token %}
+      <h4>{% if messages %}
+        {% for message in messages %}
+          <div class="alert alert-danger">{{ message }}</div>
+        {% endfor %}
+      {% endif %}</h4>
+      <h1>Sign in</h1>
+      <input type="text" name="username" placeholder="Enter Username" />
+      <input type="password" name="password" placeholder="Enter password" />
+      <button type="submit">Login</button>
+    </form>
+  </div>
+  <div class="overlay-container">
+    <div class="overlay">
+      <div class="overlay-panel overlay-left">
+        <h1>Welcome Back!</h1>
+        <p>To keep connected with us, please login with your personal info. </p>
+        <button class="ghost" id="signIn">Sign In</button>
+      </div>
+      <div class="overlay-panel overlay-right">
+        <h1>Hello, Friend!</h1>
+        <p>Stay secure with us, sign up for your piece of mind today!</p>
+        <button class="ghost" id="signUp">Sign Up</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<script src="{% static 'javascript/form.js' %}"></script>
+

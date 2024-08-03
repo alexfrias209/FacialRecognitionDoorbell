@@ -1,0 +1,27 @@
+{% extends 'main.html' %} {% load static %} {% block content %}
+
+<link rel="stylesheet" type="text/css" href="{% static 'styles/videoGa.css' %}" />
+
+<div class="changing">
+  <h1>Video Session History</h1>
+  <table class="my-table">
+    <thead>
+      <tr>
+        <th>Date</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for session in video_sessions %}
+      <tr>
+        <td>
+          <a href="{% url 'history_gallery' session.pk %}"
+            >{{ session.creation_date }}</a
+          >
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+
+{% endblock %}

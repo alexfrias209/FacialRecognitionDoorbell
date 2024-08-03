@@ -1,0 +1,35 @@
+{% extends 'main.html' %} {% load static %} {% block content %}
+
+
+
+<link
+  rel="stylesheet"
+  type="text/css"
+  href="{% static 'styles/styles.css' %}"
+/>
+
+
+
+
+
+<div class="container" id="container">
+
+    <form class="del" action="" method="POST">
+        {% csrf_token %}
+        <p>Are you sure you want to delete {{uAccount.username}}?</p>
+        <a href="{% url 'home' %}">
+            <div class="bl">
+              <span>Go Back</span>
+            </div>
+          </a>
+        <input type="submit" value="Confirm">
+    </form>
+ 
+
+
+</div>
+
+
+
+
+{% endblock content %}

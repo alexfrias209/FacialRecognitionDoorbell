@@ -1,0 +1,109 @@
+{% extends 'main.html' %} {% load static %} {% block content %}
+
+<link
+  rel="stylesheet"
+  type="text/css"
+  href="{% static 'styles/styles_editP.css' %}"
+/>
+<link
+      href="https://fonts.googleapis.com/css2?family=PT+Serif&display=swap"
+      rel="stylesheet"
+    />
+
+<div class="container" id="container">
+  <div class="form-box old-container">
+    
+
+   
+
+      <form method="POST" enctype="multipart/form-data">
+        <div class="adjust">
+        <a class="adj" href="{% url 'home' %}">
+          <i class="fa-solid fa-arrow-left fa-2x" style="color: #245953; border-radius: 50%; border: 2px solid #72819d; padding: 3px;"></i>
+        </a>
+      
+        <h1 style="margin-top: 15px; padding-left: 10px;">Update Profile</h1>
+        </div>
+        {% csrf_token %} 
+        {{ form.username }}
+        {{ form.user_email }}
+        {{ form.unique_string }}
+        <div>
+         
+          <input
+            type="file"
+            name="{{ form.profile_picture.name }}"
+            id="id_profile_picture_input"
+            style="display: none"
+          />
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+      </form>
+ 
+  </div>
+  <div class="overlay-container">
+    <div class="overlay">
+     
+      <div class="overlay-panel overlay-right">
+        
+        <form class="toast" method="POST" enctype="multipart/form-data">
+          
+          <h1 class="pic-text">Update Picture</h1>
+          <img id="profile-picture-preview" src="#" alt="profile Picture" style="display: none; width: 30%;">
+
+          {% csrf_token %} 
+          <div>
+            <button
+              type="button"
+              class="btn_btn-primary"
+              id="id_profile_picture_button"
+            >
+              Choose File
+            </button>
+            <input
+              type="file"
+              name="{{ form.profile_picture.name }}"
+              id="id_profile_picture_input"
+              style="display: none"
+            />
+          </div>
+ 
+        </form>
+        
+      
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const profilePictureInput = document.getElementById(
+      "id_profile_picture_input"
+    );
+    const profilePicturePreview = document.getElementById(
+      "profile-picture-preview"
+    );
+
+    document
+      .getElementById("id_profile_picture_button")
+      .addEventListener("click", function () {
+        profilePictureInput.click();
+      });
+
+    profilePictureInput.addEventListener("change", function () {
+      const file = profilePictureInput.files[0];
+      const reader = new FileReader();
+
+      reader.addEventListener("load", function () {
+        profilePicturePreview.src = reader.result;
+        profilePicturePreview.style.display = "block";
+      });
+
+      if (file) {
+        reader.readAsDataURL(file);
+      }
+    });
+  });
+</script>
+{% endblock %}

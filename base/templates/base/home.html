@@ -1,0 +1,98 @@
+{% extends 'main.html' %} {% load static %} {% block content %}
+
+<link rel="stylesheet" type="text/css" href="{% static 'styles/styles_home.css' %}"/>
+
+
+<header class="header">
+  <div class="container">
+    <div class="prof">
+      {% if uProfile.profile_picture %}
+      <img
+        id="yes"
+        src="{{ uProfile.profile_picture.url }}"
+        alt="Profile picture"
+      />
+      {% else %}
+      <p>No profile picture found.</p>
+      {% endif %}
+      <h1>Hello, {{ uProfile.username }}!</h1>
+      <div class="link_icons">
+        <a href="{% url 'updateUser' request.user.id %}" title="Edit ProfilePicture">
+          <i class="fa-solid fa-user-pen fa-2x"></i>
+        </a>
+        <a href="{% url 'num' %}" title="Edit PhoneNumbers">
+          <i class="fas fa-phone fa-2x"></i>
+        </a>
+        <a href="{% url 'history_vid' request.user.id %}" title="View History">
+          <i class="fa-solid fa-clock-rotate-left fa-2x"></i>
+        </a>
+      </div>
+    </div>
+  </div>
+</header>
+
+
+<div class="form-wrapper">
+  <div><h2>Enter New Recognition</h2></div>
+  <form method="POST" action="">
+    {% csrf_token %}
+    <div class="form-container">
+      <div class="form-column">
+        {{ form.username.label_tag }} {{ form.username}}
+      </div>
+    </div>
+    <input id="no" type="submit" class ="btn-submit" value="Submit" />
+  </form>
+</div>
+<h2 id="stuff">Recognized Neighbors</h2>
+<div class="flex-container">
+  {% for account in uProfile.account_set.all %}
+  <div class="item">
+    <h4>{% if messages %}
+      {% for message in messages %}
+        <div class="alert alert-danger">{{ message }}</div>
+      {% endfor %}
+    {% endif %}</h4>
+    <h3>{{ account }}</h3>
+
+    <div class="stuff">
+      <a href="{% url 'updateForm' account.id %}" style="text-decoration:none;">Edit</a>
+      <a href="{% url 'deleteForm' account.id %}" style="text-decoration:none;">Delete</a>
+      <a href="{% url 'viewing' account.id %}" style="text-decoration:none;">View</a>
+    </div>
+    
+
+    {% if account.account_picture %}
+    <img
+      src="{{ account.account_picture.url }}"
+      alt="{{ account.username }}'s profile picture"
+      style="border-radius: 50%;"
+    
+    />
+    {% else %}
+    <img
+      src="{{ MEDIA_URL }}account_picture/user-default.png"
+      alt="Default profile picture"
+    />
+    {% endif %}
+
+    <div class="move">
+      <form
+        method="POST"
+        action="{% url 'upload' %}"
+        enctype="multipart/form-data"
+      >
+        {% csrf_token %}
+        <input type="hidden" name="account_id" value="{{ account.id }}" />
+        <div class="form-group m-3">
+          <label>Upload images</label>
+          <input type="file" name="images" multiple />
+        </div>
+        <button id="blah" type="submit">Submit</button>
+      </form>
+    </div>
+  </div>
+  {% endfor %}
+</div>
+
+{% endblock %}
